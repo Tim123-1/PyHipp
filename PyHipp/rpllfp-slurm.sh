@@ -5,7 +5,7 @@
 #SBATCH --time=24:00:00   # walltime
 #SBATCH --ntasks=1   # number of processor cores (i.e. tasks)
 #SBATCH --nodes=1   # number of nodes
-#SBATCH --cpus-per-task=1      # number of processors per task
+#SBATCH --cpus-per-task=5      # number of processors per task
 #SBATCH -J "rpllfp"   # job name
 
 ## /SBATCH -p general # partition (queue)
@@ -18,4 +18,4 @@ import time; \
 pyh.RPLLFP(saveLevel=1); \
 print(time.localtime());"
 
-aws sns publish --topic-arn arn:aws:sns:ap-southeast-1:152767366464:awsnotify --message "RPLLPLJobDone"
+aws sns publish --topic-arn arn:aws:sns:ap-southeast-1:012345678901:awsnotify --message "RPLLPLJobDone"

@@ -5,7 +5,7 @@
 #SBATCH --time=24:00:00   # walltime
 #SBATCH --ntasks=1   # number of processor cores (i.e. tasks)
 #SBATCH --nodes=1   # number of nodes
-#SBATCH --cpus-per-task=1	# number of processors per task
+#SBATCH --cpus-per-task=1      # number of processors per task
 #SBATCH -J "rse"   # job name
 
 ## /SBATCH -p general # partition (queue)
@@ -14,8 +14,8 @@
 
 # LOAD MODULES, INSERT CODE, AND RUN YOUR PROGRAMS HERE
 python -u -c "import PyHipp as pyh; \
-import os; \
 import time; \
+import os; \
 t0 = time.time(); \
 print(time.localtime()); \
 os.chdir('sessioneye'); \
@@ -23,4 +23,4 @@ pyh.RPLSplit(SkipLFP=False, SkipHighPass=False); \
 print(time.localtime()); \
 print(time.time()-t0);"
 
-aws sns publish --topic-arn arn:aws:sns:ap-southeast-1:012345678901:awsnotify --message "RSEJobDone"
+aws sns publish --topic-arn arn:aws:sns:ap-southeast-1:152767366464:awsnotify --message "RSEJobDone"

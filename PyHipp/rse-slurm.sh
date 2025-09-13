@@ -6,16 +6,21 @@
 #SBATCH --ntasks=1   # number of processor cores (i.e. tasks)
 #SBATCH --nodes=1   # number of nodes
 #SBATCH --cpus-per-task=1      # number of processors per task
-#SBATCH -J "rpllfp"   # job name
+#SBATCH -J "rse"   # job name
 
 ## /SBATCH -p general # partition (queue)
-#SBATCH -o rpllfp-slurm.%N.%j.out # STDOUT
-#SBATCH -e rpllfp-slurm.%N.%j.err # STDERR
+#SBATCH -o rse-slurm.%N.%j.out # STDOUT
+#SBATCH -e rse-slurm.%N.%j.err # STDERR
 
 # LOAD MODULES, INSERT CODE, AND RUN YOUR PROGRAMS HERE
 python -u -c "import PyHipp as pyh; \
 import time; \
-pyh.RPLLFP(saveLevel=1); \
-print(time.localtime());"
+import os; \
+t0 = time.time(); \
+print(time.localtime()); \
+os.chdir('sessioneye'); \
+pyh.RPLSplit(SkipLFP=False, SkipHighPass=False); \
+print(time.localtime()); \
+print(time.time()-t0);"
 
-aws sns publish --topic-arn arn:aws:sns:ap-southeast-1:152767366464:awsnotify --message "RPLLPLJobDone"
+aws sns publish --topic-arn arn:aws:sns:ap-southeast-1:012345678901:awsnotify --message "RSEJobDone"
